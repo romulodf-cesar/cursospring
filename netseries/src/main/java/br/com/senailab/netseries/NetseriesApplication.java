@@ -1,6 +1,8 @@
 package br.com.senailab.netseries;
 
+import br.com.senailab.netseries.model.DadosEpisodio;
 import br.com.senailab.netseries.model.DadosSerie;
+import br.com.senailab.netseries.model.DadosTemporada;
 import br.com.senailab.netseries.service.ConsumoAPI;
 import br.com.senailab.netseries.service.ConverteDados;
 import org.springframework.boot.CommandLineRunner;
@@ -12,6 +14,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class NetseriesApplication implements CommandLineRunner {
@@ -23,11 +27,13 @@ public class NetseriesApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Olá Mundo Spring Console!");
-        var consumoAPI = new ConsumoAPI();
-        var json= consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&apikey=6585022c");
+        var consumoApi = new ConsumoAPI();
+        var json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&apikey=6585022c");
+//		System.out.println(json);
+//		json = consumoApi.obterDados("https://coffee.alexflipnote.dev/random.json");
         System.out.println(json);
-        //Dever de casa: Próximo passo - Transformar esse JSON em objetos Java com Jackson.
+        ConverteDados conversor = new ConverteDados();
+        DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
 
 
         // O que é serializar e desserializar?
@@ -45,9 +51,24 @@ public class NetseriesApplication implements CommandLineRunner {
 
         // Desserialização = JSON -- java
         // Serialização = Java --> JSON
-        ConverteDados conversor = new ConverteDados();
-        DadosSerie dados = conversor.obterDados(json,DadosSerie.class);
         System.out.println(dados);
+        json = consumoApi.obterDados("https://omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=6585022c");
+        DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
+        System.out.println(dadosEpisodio);
+
+        List<DadosTemporada> temporadas = new ArrayList<>();
+
+        for(int i = 1; i<=dados.totalTemporadas(); i++) {
+            json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season=" + i + "&apikey=6585022c");
+            DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+            temporadas.add(dadosTemporada);
+
+        }
+        temporadas.forEach(System.out::println);
+
+
+
+
     }
 
 }
