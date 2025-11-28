@@ -3,6 +3,7 @@ package br.com.senailab.netseries;
 import br.com.senailab.netseries.model.DadosEpisodio;
 import br.com.senailab.netseries.model.DadosSerie;
 import br.com.senailab.netseries.model.DadosTemporada;
+import br.com.senailab.netseries.principal.Principal;
 import br.com.senailab.netseries.service.ConsumoAPI;
 import br.com.senailab.netseries.service.ConverteDados;
 import org.springframework.boot.CommandLineRunner;
@@ -27,11 +28,13 @@ public class NetseriesApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        Principal principal = new Principal();
+        principal.exibeMenu();
         var consumoApi = new ConsumoAPI();
         var json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&apikey=6585022c");
 //		System.out.println(json);
 //		json = consumoApi.obterDados("https://coffee.alexflipnote.dev/random.json");
-        System.out.println(json);
+        //System.out.println(json);
         ConverteDados conversor = new ConverteDados();
         DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
 
@@ -51,10 +54,10 @@ public class NetseriesApplication implements CommandLineRunner {
 
         // Desserialização = JSON -- java
         // Serialização = Java --> JSON
-        System.out.println(dados);
+        //System.out.println(dados);
         json = consumoApi.obterDados("https://omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=6585022c");
-        DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
-        System.out.println(dadosEpisodio);
+        //DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
+        //System.out.println(dadosEpisodio);
 
         List<DadosTemporada> temporadas = new ArrayList<>();
 
