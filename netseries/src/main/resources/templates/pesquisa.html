@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>🎬 NetSeries - Pesquisa</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f9; }
+        h1 { color: #333; }
+        form { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        input[type="text"] { padding: 10px; width: 300px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .erro { color: red; margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+<h1>🎬 NetSeries - Consulta de Séries</h1>
+
+<div th:if="${erro}" class="erro">
+    <p th:text="${erro}"></p>
+</div>
+
+<form action="/detalhes" method="post">
+    <label for="titulo">Título da Série:</label>
+    <input type="text" id="titulo" name="titulo" required/>
+    <button type="submit">Buscar Detalhes</button>
+</form>
+</body>
+</html>

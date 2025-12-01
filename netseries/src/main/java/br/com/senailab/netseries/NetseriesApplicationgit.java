@@ -19,13 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
-public class NetseriesApplication implements CommandLineRunner {
+public class NetseriesApplicationgit {
 
 	public static void main(String[] args) {
 
-        SpringApplication.run(NetseriesApplication.class, args);
+        SpringApplication.run(NetseriesApplicationgit.class, args);
 	}
-
+}
+/*
     @Override
     public void run(String... args) throws Exception {
         Principal principal = new Principal();
@@ -74,4 +75,7 @@ public class NetseriesApplication implements CommandLineRunner {
 
     }
 
-}
+    */
+
+
+

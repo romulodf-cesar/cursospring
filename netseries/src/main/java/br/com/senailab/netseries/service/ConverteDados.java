@@ -3,7 +3,9 @@ package br.com.senailab.netseries.service;
 import br.com.senailab.netseries.model.DadosSerie;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ConverteDados implements IConverteDados{
     //objeto para serialização e desserialização:
     private ObjectMapper mapper = new ObjectMapper();

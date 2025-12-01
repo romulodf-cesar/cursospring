@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${serie.titulo}"></title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #007bff; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+        h3 { color: #333; margin-top: 20px; }
+        ul { list-style: none; padding-left: 0; }
+        li { background: #eee; margin-bottom: 5px; padding: 8px; border-radius: 4px; }
+        a { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="/">← Nova Pesquisa</a>
+    <hr/>
+
+    <h1 th:text="${serie.titulo}">Título</h1>
+    <p>Avaliação IMDb: <strong><span th:text="${serie.avaliacao}"></span></strong></p>
+    <p>Total de Temporadas: <strong><span th:text="${serie.totalTemporadas}"></span></strong></p>
+
+    <h2>Detalhes por Temporada</h2>
+
+    <div th:each="temporada : ${temporadas}">
+        <h3 th:text="'Temporada ' + ${temporada.numero}">Temporada X</h3>
+
+        <ul>
+            <li th:each="episodio : ${temporada.episodios}">
+                <span th:text="${episodio.titulo}">Nome do Episódio</span>
+                (Nota: <strong th:text="${episodio.avaliacao}"></strong>)
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
